@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 
-import com.h2o.ps36o.utils.MongoDbConnection;
+import com.h2o.ps360.utils.MongoDbConnection;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;

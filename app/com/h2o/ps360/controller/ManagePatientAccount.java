@@ -3,7 +3,7 @@ package com.h2o.ps360.controller;
 /*
  * MariaDB
  */
-public class ManagePatientAccount  {
+public class ManagePatientAccount {
 
 	/*
 	 * it Creates patient Account method

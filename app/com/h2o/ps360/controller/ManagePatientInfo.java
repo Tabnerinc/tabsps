@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 import com.h2o.ps360.dataobjects.nosqldb.PatientInfo;
 import com.h2o.ps360.ui.service.CreatePatientInfoService;
+import com.h2o.ps360.ui.service.GetPatientInfoService;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,8 +14,8 @@ public class ManagePatientInfo extends Controller{
 	@Inject
 	CreatePatientInfoService createPatientInfoService;
 	
-	@Inject
-	ManagePatientAccount managePatientAccount;
+@Inject
+GetPatientInfoService getPatientInfoService;
 	
 	/*
 	 * to create patient  information
@@ -34,7 +35,7 @@ public class ManagePatientInfo extends Controller{
 	   * Save the json string in mongo db 
 	   * 
 	   */
-	  createPatientInfoService.savePatientInfo(userjsonstring);
+	  createPatientInfoService.savePatientInfo(userjsonstring); //method
 	  return ok("patient information created");
 	 }
 	 
@@ -51,8 +52,11 @@ public class ManagePatientInfo extends Controller{
 	/*
 	 * to get the patient information(group) 
 	 */
-	public void getPatientInfo(){
+	public Result getPatientInfo(){
+		String email = request().body().asFormUrlEncoded().get("emailId")[0];
 		
+		return ok();
+		  
 	}
 	
 	
