@@ -1,5 +1,6 @@
 package com.h2o.ps360.ui.service;
 
+<<<<<<< Upstream, based on origin/venkat
 import com.google.inject.Inject;
 import com.h2o.ps360.utils.MongoDbConnection;
 import com.mongodb.DBObject;
@@ -10,7 +11,10 @@ import com.mongodb.util.JSON;
  * PatientInfo has the following details
  * a.patientId   b.firstName c.lastName so create
  */
+=======
+>>>>>>> ad45e58 local commit
 public class CreatePatientInfoService {
+<<<<<<< Upstream, based on origin/venkat
 Integer patientId = 2000;
 @Inject
 MongoDbConnection mongo;
@@ -49,3 +53,7 @@ MongoDbConnection mongo;
 		return savedFlag;
 	}
 }
+=======
+
+}
+>>>>>>> ad45e58 local commit

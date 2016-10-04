@@ -16,7 +16,7 @@ public class Patient {
 	public int patientId;
 	public String emailId;
 	public String password;
-	public byte isActive;
+	public boolean isActive;
 
 	public int getAcId() {
 		return acId;
@@ -50,12 +50,12 @@ public class Patient {
 		this.password = password;
 	}
 
-	public byte getIsActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setIsActive(byte isActive) {
-		this.isActive = isActive;
+	public void setIsActive(boolean b) {
+		this.isActive = b;
 	}
 
 }

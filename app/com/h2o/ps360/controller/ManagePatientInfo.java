@@ -1,5 +1,6 @@
 package com.h2o.ps360.controller;
 
+<<<<<<< Upstream, based on origin/venkat
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.h2o.ps360.ui.service.CreatePatientInfoService;
@@ -7,10 +8,14 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class ManagePatientInfo extends Controller{
+=======
+public class ManagePatientInfo {
+>>>>>>> ad45e58 local commit
 
 	/*
 	 * to create patient  information
 	 */
+<<<<<<< Upstream, based on origin/venkat
 	@Inject
 	CreatePatientInfoService createPatientInfoService;
 	public Result createPatientInfo(){
@@ -32,6 +37,10 @@ public class ManagePatientInfo extends Controller{
 			System.out.println("patient created : true with patientId"+patientcreatedId);
 			return ok("created");
 		}
+=======
+	public void createPatientInfo(){
+		
+>>>>>>> ad45e58 local commit
 	}
 	
 	
