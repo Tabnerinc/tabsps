@@ -19,9 +19,9 @@ MongoDbConnection mongo;
 		boolean patientCreated = false;
 		DBObject patientInfo = (DBObject) JSON.parse(inputStringFromPatientForm);
 		patientInfo.put("patientId",patientId);
-		patientId++;
 		patientCreated = savePatientInfo(patientInfo);
 		if(patientCreated){
+		patientId++;
 		return patientIdAllocated;
 		}
 		else
