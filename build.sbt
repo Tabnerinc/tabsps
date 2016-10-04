@@ -7,13 +7,18 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  javaJdbc,
-  cache,
+   cache,
   javaWs,
   javaJpa,
   javaJdbc,
   "org.mongodb.morphia" % "morphia" % "0.107",
+<<<<<<< HEAD
   javaWs,javaJpa,"org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final","org.mariadb.jdbc" % "mariadb-java-client" % "1.1.7",
+=======
+  javaWs,javaJpa,
+  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
+  "org.mariadb.jdbc" % "mariadb-java-client" % "1.1.7",
+>>>>>>> refs/remotes/origin/venkat
   "com.google.code.gson" % "gson" % "2.3.1",
   "org.mongodb" % "mongo-java-driver" % "1.3"
 )

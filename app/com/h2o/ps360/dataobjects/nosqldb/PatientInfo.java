@@ -1,10 +1,6 @@
 package com.h2o.ps360.dataobjects.nosqldb;
-
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-
-@Entity
 public class PatientInfo {
+<<<<<<< HEAD
 	
 		@Id
 		public String id;
@@ -16,4 +12,9 @@ public class PatientInfo {
 		public PatientInfo(String firstName2, String secondName, String email, String password2) {
 			// TODO Auto-generated constructor stub
 		}
+=======
+		public int id;
+		public String Gender;
+		public String Age;
+>>>>>>> refs/remotes/origin/venkat
 }
