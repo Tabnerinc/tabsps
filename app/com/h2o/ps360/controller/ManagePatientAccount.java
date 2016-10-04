@@ -1,5 +1,6 @@
 package com.h2o.ps360.controller;
 
+<<<<<<< Upstream, based on origin/sravani
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -15,12 +16,19 @@ import com.h2o.ps360.ui.service.ResetPasswordService;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 import play.mvc.Result;
+=======
+import com.google.inject.Inject;
+import com.h2o.ps360.dataobjects.sqldb.Patient;
+import com.h2o.ps360.ui.service.CreatePatientAccountService;
+>>>>>>> a00d5ba local changes
 
 /*
  * MariaDB
  */
 public class ManagePatientAccount extends Controller {
 
+	@Inject
+	CreatePatientAccountService createpatientaccount;
 	/*
 	 * it Creates patient Account method
 	 */
@@ -32,6 +40,7 @@ public class ManagePatientAccount extends Controller {
 	ResetPasswordService resetPasswordServ;
 	
 
+<<<<<<< Upstream, based on origin/sravani
 	public void createPatientAccount() {
 	    Map<String,String[]> formfields =  request().body().asFormUrlEncoded();
 
@@ -45,6 +54,10 @@ public class ManagePatientAccount extends Controller {
 		patientAccServ.savePatient(patient);
 		redirect("/signin");
 
+=======
+	public void createPatientAccount(Patient patient) {
+		
+>>>>>>> a00d5ba local changes
 	}
 
 	/*

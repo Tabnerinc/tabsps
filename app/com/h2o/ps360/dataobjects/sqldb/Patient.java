@@ -16,8 +16,19 @@ public class Patient {
 	public int patientId;
 	public String emailId;
 	public String password;
+<<<<<<< Upstream, based on origin/sravani
 	public boolean isActive;
 
+=======
+	public byte isActive;
+	public Patient(){
+		
+	}
+	public Patient(String emailId,String password){
+		this.emailId = emailId;
+		this.password = password;
+	}
+>>>>>>> a00d5ba local changes
 	public int getAcId() {
 		return acId;
 	}

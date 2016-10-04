@@ -1,14 +1,19 @@
 package com.h2o.ps360.controller;
-
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.h2o.ps360.ui.service.CreatePatientInfoService;
-import play.mvc.Controller;
-import play.mvc.Result;
 
+<<<<<<< Upstream, based on origin/sravani
 public class ManagePatientInfo extends Controller{
+=======
+public class ManagePatientInfo{
+
+	/*
+	 * to create patient  information
+	 */
+>>>>>>> a00d5ba local changes
 	@Inject
 	CreatePatientInfoService createPatientInfoService;
+<<<<<<< Upstream, based on origin/sravani
 	public static int patientcreatedId;
 	
 	public Result createPatientInfo(){
@@ -32,6 +37,11 @@ public class ManagePatientInfo extends Controller{
 		}
 
 
+=======
+	public int createPatientInfo(String inputStringFromPatientForm){
+		int patientcreatedId = createPatientInfoService.createPatientSignupInfo(inputStringFromPatientForm);
+		return patientcreatedId;
+>>>>>>> a00d5ba local changes
 	}
 	
 	

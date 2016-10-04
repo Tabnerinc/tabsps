@@ -1,2 +1,6 @@
 /ApplicationTest.class
+/IntegrationTest.class
+/application.conf
 /com/
+/logback.xml
+/routes
