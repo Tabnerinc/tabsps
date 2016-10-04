@@ -1,5 +1,6 @@
 package com.h2o.ps360.ui.service;
 
+import com.google.inject.Inject;
 import com.h2o.ps36o.utils.MongoDbConnection;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -11,13 +12,22 @@ import com.mongodb.util.JSON;
  */
 public class CreatePatientInfoService {
 Integer patientId = 2000;
-MongoDbConnection mongo = new MongoDbConnection();
-	public int createPatientSignupInfo(String inputStringFromPatient){
+@Inject
+MongoDbConnection mongo;
+	public int createPatientSignupInfo(String inputStringFromPatientForm){
 		int patientIdAllocated = patientId;
-		DBObject patientInfo = (DBObject) JSON.parse(inputStringFromPatient);
+		boolean patientCreated = false;
+		DBObject patientInfo = (DBObject) JSON.parse(inputStringFromPatientForm);
 		patientInfo.put("patientId",patientId);
 		patientId++;
+		patientCreated = savePatientInfo(patientInfo);
+		if(patientCreated){
 		return patientIdAllocated;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 	/*
 	 * The Method savePatientInfo will save the patientInfo Object in PatientInfo in Mongodb
