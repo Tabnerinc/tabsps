@@ -8,6 +8,7 @@ import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
 public class PatientLoginService {
+	
 	@Transactional
 	public Patient getUserInf(String emailId, String password) throws Exception {
 

@@ -32,7 +32,16 @@ public class ManagePatientAccount extends Controller {
 	ResetPasswordService resetPasswordServ;
 	
 
-	public void createPatientAccount(Patient patient) {
+	public void createPatientAccount() {
+	    Map<String,String[]> formfields =  request().body().asFormUrlEncoded();
+
+		 String firstname= formfields.get("firstName")[0];
+		    String lastname= formfields.get("lastName")[0];
+		    String emailId= formfields.get("emailId")[0];
+		    String password= formfields.get("password")[0];
+		int patientid=ManagePatientInfo.patientcreatedId;
+		Patient patient = new Patient(Integer.parseInt(mongouserid),patientid,emailId,password,false);
+
 		patientAccServ.savePatient(patient);
 		redirect("/signin");
 

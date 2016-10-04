@@ -1,6 +1,5 @@
 package com.h2o.ps360.controller;
 
-<<<<<<< Upstream, based on origin/venkat
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.h2o.ps360.ui.service.CreatePatientInfoService;
@@ -8,16 +7,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class ManagePatientInfo extends Controller{
-=======
-public class ManagePatientInfo {
->>>>>>> ad45e58 local commit
-
-	/*
-	 * to create patient  information
-	 */
-<<<<<<< Upstream, based on origin/venkat
 	@Inject
 	CreatePatientInfoService createPatientInfoService;
+	public static int patientcreatedId;
+	
 	public Result createPatientInfo(){
 		String email = request().body().asFormUrlEncoded().get("emailId")[0];
 		String password = request().body().asFormUrlEncoded().get("password")[0];
@@ -27,7 +20,7 @@ public class ManagePatientInfo {
 		Gson userjson = new Gson();
 		String inputStringFromPatientForm = userjson.toJson(user);
 		/*********************converting the paramters into string***********************************/
-		int patientcreatedId = createPatientInfoService.createPatientSignupInfo(inputStringFromPatientForm);
+		 patientcreatedId = createPatientInfoService.createPatientSignupInfo(inputStringFromPatientForm);
 		if(patientcreatedId==0){
 			System.out.println("patient created : false with patientid"+patientcreatedId);
 			return ok("not created");
@@ -37,10 +30,8 @@ public class ManagePatientInfo {
 			System.out.println("patient created : true with patientId"+patientcreatedId);
 			return ok("created");
 		}
-=======
-	public void createPatientInfo(){
-		
->>>>>>> ad45e58 local commit
+
+
 	}
 	
 	

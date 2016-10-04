@@ -6,6 +6,7 @@ import play.db.jpa.JPA;
 
 public class CreatePatientAccountService {
 	
+	
 	public void savePatient(Patient patient){ 
 	 JPA.em().persist(patient);
 	}

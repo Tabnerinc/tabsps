@@ -8,6 +8,7 @@ import play.db.jpa.JPA;
 
 public class ResetPasswordService {
 
+	
 	public Boolean isPasswordMatch(Patient patient) {
 		// TODO Auto-generated method stub
 		Query query=JPA.em().createQuery("select p from patient p where password=?1");
