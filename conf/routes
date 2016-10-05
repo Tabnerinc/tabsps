@@ -1,44 +1,24 @@
-
-<<<<<<< HEAD
-=======
-
 ############################UserInterface Routes########################################
 #this is signin page index.html [REACTjS] page
-GET     /signin                     controllers.Assets.at(path="/public", file="html/index.html")
+GET    /signin       controllers.Assets.at(path="/public", file="html/index.html")
 
 #this is signin page index.html [REACTjS] page
-GET     /signup                     controllers.Assets.at(path="/public", file="html/index.html")
+GET    /signup       controllers.Assets.at(path="/public", file="html/index.html")
 
 # The Mapping for the ReactJS Bundle javascript for index.html
-GET     /bundle           controllers.Assets.at(path="/public", file="javascripts/bundle.js")
+GET    /bundle       controllers.Assets.at(path="/public", file="javascripts/bundle.js")
 
-GET     /styles           controllers.Assets.at(path="/public",file="stylesheets/styles.css")
+GET    /styles       controllers.Assets.at(path="/public",file="stylesheets/styles.css")
 
 
 #####################################################################
 
-POST    /signupuser       com.h2o.ps360.controller.ManagePatientInfo.createPatientInfo
->>>>>>> refs/remotes/origin/venkat
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-#this is signin page index.html [REACTjS] page
-GET     /signin                     controllers.Assets.at(path="/public", file="html/index.html")
-
-#this is signin page index.html [REACTjS] page
-GET     /signup                     controllers.Assets.at(path="/public", file="html/index.html")
-
-# The Mapping for the ReactJS Bundle javascript for index.html
-GET     /bundle           controllers.Assets.at(path="/public", file="javascripts/bundle.js")
-
-GET     /styles           controllers.Assets.at(path="/public",file="stylesheets/styles.css")
-
-#Map for the saveasjson button in signup.html from the ajax call saveMongo() method in signup.html
-POST  /signupuser          com.h2o.ps360.controller.ManagePatientInfo.createPatientInfo()
+POST   /signupuser   com.h2o.ps360.controller.ManagePatientInfo.createPatientInfo
 
 #Map for the signin button in index.html 
 #POST    /signinuser              controllers.SigninPageController.signinvalidate
 
 
+
+POST   /searchbyusername      com.h2o.ps360.controller.ManagePatientInfo.getPatientInfo
 
