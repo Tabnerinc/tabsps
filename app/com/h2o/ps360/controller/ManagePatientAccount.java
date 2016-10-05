@@ -1,63 +1,45 @@
 package com.h2o.ps360.controller;
 
-<<<<<<< Upstream, based on origin/sravani
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.persistence.Query;
-
+import com.fasterxml.jackson.databind.JsonNode;
 import com.h2o.ps360.dataobjects.sqldb.Patient;
+import com.h2o.ps360.dataobjects.ui.service.dataobjects.PatientValidatedDataObject;
 import com.h2o.ps360.ui.service.CreatePatientAccountService;
 import com.h2o.ps360.ui.service.PatientLoginService;
 import com.h2o.ps360.ui.service.ResetPasswordService;
 
-import play.db.jpa.JPA;
+import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-=======
-import com.google.inject.Inject;
-import com.h2o.ps360.dataobjects.sqldb.Patient;
-import com.h2o.ps360.ui.service.CreatePatientAccountService;
->>>>>>> a00d5ba local changes
+
 
 /*
  * MariaDB
  */
 public class ManagePatientAccount extends Controller {
 
-	@Inject
-	CreatePatientAccountService createpatientaccount;
 	/*
 	 * it Creates patient Account method
 	 */
 	@Inject
 	PatientLoginService patientLoginServ;
 	@Inject
-	CreatePatientAccountService patientAccServ;
+	CreatePatientAccountService patientaccountservice;
 	@Inject
 	ResetPasswordService resetPasswordServ;
 	
+/*
+ * Create Patient will save the patient "Account" details in the MariaDb 
+ */
+	public boolean createPatientAccount(Patient patient) {
+		boolean saved=patientaccountservice.savePatient(patient);
+		return saved;
 
-<<<<<<< Upstream, based on origin/sravani
-	public void createPatientAccount() {
-	    Map<String,String[]> formfields =  request().body().asFormUrlEncoded();
-
-		 String firstname= formfields.get("firstName")[0];
-		    String lastname= formfields.get("lastName")[0];
-		    String emailId= formfields.get("emailId")[0];
-		    String password= formfields.get("password")[0];
-		int patientid=ManagePatientInfo.patientcreatedId;
-		Patient patient = new Patient(Integer.parseInt(mongouserid),patientid,emailId,password,false);
-
-		patientAccServ.savePatient(patient);
-		redirect("/signin");
-
-=======
-	public void createPatientAccount(Patient patient) {
-		
->>>>>>> a00d5ba local changes
 	}
 
 	/*
@@ -70,23 +52,27 @@ public class ManagePatientAccount extends Controller {
 	}
 
 	/*
-	 * patient login validation
+	 * patient login validation Is done by 
 	 */
+	@Transactional
 	public Result patientLogin()
 	{
-		
+		/*****************Expecting a JSOn String *********************/
 		Map<String, String[]> formdata = request().body().asFormUrlEncoded();
 		Set<String> keys= formdata.keySet();
 		Iterator<String> it = keys.iterator();
 		String username = formdata.get(it.next())[0];
 		String password = formdata.get(it.next())[0];
-		Result result = findPatient(username,password);
-		return result;
+		
+		/**************************************************/
+		JsonNode jsonFormatOfValidatedpatient = findPatient(username,password);
+		return ok(jsonFormatOfValidatedpatient);
 		
 	}
-	public Result findPatient(String username,String password) {
+	public JsonNode findPatient(String username,String password) {
 		
 		Patient users=null;
+	    PatientValidatedDataObject validatedpatient = new PatientValidatedDataObject();
 		try {
 			users = patientLoginServ.getUserInf(username, password);
 			System.out.println(username+password);
@@ -95,12 +81,22 @@ public class ManagePatientAccount extends Controller {
 			e.printStackTrace();
 		}
 		if(users==null){
-			return redirect("/signin");
+			validatedpatient.setAuthrole("anonymous");
+			validatedpatient.setToken(null);
+			validatedpatient.setValidated(false);
 		}
 		else
-		return redirect("/home");
-
-
+		{
+			validatedpatient.setAuthrole("user");
+			/*
+			 * we cannot set cookie for serialization , so we can send cookie attributes as 
+			 * a another json
+			 */
+			validatedpatient.setToken(username.substring(2,4)+password.substring(2,4));
+			validatedpatient.setValidated(true);
+		}
+		JsonNode JsonFormatOfValidatedPatientInfo = Json.toJson(validatedpatient);
+		return JsonFormatOfValidatedPatientInfo;
 	}
 
 	/*

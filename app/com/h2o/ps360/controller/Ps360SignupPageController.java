@@ -1,8 +1,12 @@
 package com.h2o.ps360.controller;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.h2o.ps360.dataobjects.sqldb.Patient;
+import com.h2o.ps360.dataobjects.ui.service.dataobjects.SignupResponseObject;
 
+import play.db.jpa.Transactional;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -11,31 +15,49 @@ public class Ps360SignupPageController extends Controller{
 ManagePatientInfo patientinfo;
 @Inject 
 ManagePatientAccount patientaccount; 
-	public Result SigninPage(){
-		String email = request().body().asFormUrlEncoded().get("emailId")[0];
-		String password = request().body().asFormUrlEncoded().get("password")[0];
-		String firstName = request().body().asFormUrlEncoded().get("firstName")[0];
-		String secondName = request().body().asFormUrlEncoded().get("lastName")[0];
-		com.h2o.ps360.testutilities.User user = new com.h2o.ps360.testutilities.User(firstName,secondName);
-		Patient patient = new Patient(email,password);
-		Gson userjson = new Gson();
-		String inputStringFromPatientForm = userjson.toJson(user);
-		
+@Transactional
+	public Result SignupPage(){
+System.out.println("*****************************************************");
+		String inputStringFromPatientForm = request().body().asFormUrlEncoded().get("signin")[0];
+				SignupResponseObject signupresponseobject = new SignupResponseObject();
+		JsonNode signupresponse=null;
 		/*********************converting the paramters into string***********************************/
 		int patientcreatedId = patientinfo.createPatientInfo(inputStringFromPatientForm);
-		
+		// patient is a mariadb entity
+		Patient patient = new Patient();
 		if(patientcreatedId==0){
-			
+			signupresponseobject.setDefaultdomaincookie("h2odomaincookie");
+			signupresponseobject.setHttpresponse(400);
+			signupresponseobject.setResponsedescription("bad request,patient info not saved");
+			signupresponseobject.setPatientid(null);
+			signupresponse = Json.toJson(signupresponseobject);
 			System.out.println("patient created : false with patientid"+patientcreatedId);
-			return ok("not created");
+			return ok(signupresponse);
 		}
 		else
 		{
+			Gson gson = new Gson();
+			patient = gson.fromJson(inputStringFromPatientForm,Patient.class);
 			patient.setAcId(patientcreatedId);
 			patient.setPatientId(patientcreatedId);
-			patientaccount.createPatientAccount(patient);
-			System.out.println("patient created : true with patientId"+patientcreatedId);
-			return ok("created");
+			patient.setIsActive(false);
+			boolean patientaccountcreated = patientaccount.createPatientAccount(patient);;
+			if(patientaccountcreated){
+			signupresponseobject.setDefaultdomaincookie("h2odomaincookie");
+			signupresponseobject.setHttpresponse(200);
+			signupresponseobject.setPatientid(patientcreatedId);
+			signupresponseobject.setResponsedescription("patient successfully registered");
+			signupresponse = Json.toJson(signupresponseobject);
+			return ok(signupresponse);
+			}
+			else{
+				signupresponseobject.setDefaultdomaincookie("h2odomaincookie");
+				signupresponseobject.setHttpresponse(400);
+				signupresponseobject.setPatientid(null);
+				signupresponseobject.setResponsedescription("patient account details not saved");
+				signupresponse = Json.toJson(signupresponseobject);
+				return ok(signupresponse);
+			}
 		}
 	}
 }

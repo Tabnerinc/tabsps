@@ -2,46 +2,14 @@ package com.h2o.ps360.controller;
 import com.google.inject.Inject;
 import com.h2o.ps360.ui.service.CreatePatientInfoService;
 
-<<<<<<< Upstream, based on origin/sravani
-public class ManagePatientInfo extends Controller{
-=======
+
 public class ManagePatientInfo{
-
-	/*
-	 * to create patient  information
-	 */
->>>>>>> a00d5ba local changes
-	@Inject
-	CreatePatientInfoService createPatientInfoService;
-<<<<<<< Upstream, based on origin/sravani
-	public static int patientcreatedId;
-	
-	public Result createPatientInfo(){
-		String email = request().body().asFormUrlEncoded().get("emailId")[0];
-		String password = request().body().asFormUrlEncoded().get("password")[0];
-		String firstName = request().body().asFormUrlEncoded().get("firstName")[0];
-		String secondName = request().body().asFormUrlEncoded().get("lastName")[0];
-		com.h2o.ps360.testutilities.User user = new com.h2o.ps360.testutilities.User(firstName,secondName,email,password);
-		Gson userjson = new Gson();
-		String inputStringFromPatientForm = userjson.toJson(user);
-		/*********************converting the paramters into string***********************************/
-		 patientcreatedId = createPatientInfoService.createPatientSignupInfo(inputStringFromPatientForm);
-		if(patientcreatedId==0){
-			System.out.println("patient created : false with patientid"+patientcreatedId);
-			return ok("not created");
-		}
-		else
-		{
-			System.out.println("patient created : true with patientId"+patientcreatedId);
-			return ok("created");
-		}
-
-
-=======
+@Inject
+CreatePatientInfoService createPatientInfoService;
 	public int createPatientInfo(String inputStringFromPatientForm){
 		int patientcreatedId = createPatientInfoService.createPatientSignupInfo(inputStringFromPatientForm);
 		return patientcreatedId;
->>>>>>> a00d5ba local changes
+
 	}
 	
 	

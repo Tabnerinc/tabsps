@@ -16,11 +16,9 @@ public class Patient {
 	public int patientId;
 	public String emailId;
 	public String password;
-<<<<<<< Upstream, based on origin/sravani
 	public boolean isActive;
-
-=======
-	public byte isActive;
+	public String username;
+	
 	public Patient(){
 		
 	}
@@ -28,7 +26,16 @@ public class Patient {
 		this.emailId = emailId;
 		this.password = password;
 	}
->>>>>>> a00d5ba local changes
+	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	public int getAcId() {
 		return acId;
 	}

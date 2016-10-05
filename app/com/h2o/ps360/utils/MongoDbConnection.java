@@ -16,7 +16,7 @@ public class MongoDbConnection {
 		String ip = applicationconfiguration.getString("mongo.first.ip");
 		int port = applicationconfiguration.getInt("mongo.first.port");
 		MongoClient client = new MongoClient(ip,port);
-		DB db = client.getDB("H2O");
+		DB db = client.getDB("h2o");
 		boolean auth = db.authenticate("venkata","mangina".toCharArray());
 		System.out.println("****************************"+auth+ip+" "+port);
 		return db;
