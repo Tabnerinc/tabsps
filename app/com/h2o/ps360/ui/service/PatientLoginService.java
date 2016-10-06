@@ -12,7 +12,7 @@ public class PatientLoginService {
 	@Transactional
 	public Patient getUserInf(String emailId, String password) throws Exception {
 
-		final String usernamequery = "SELECT u FROM Patient u WHERE u.emailId =?1 AND u.password =?2";
+		final String usernamequery = "SELECT u FROM Patient u WHERE u.username =?1 AND u.password =?2";
 
 		Query userDbObject = JPA.em().createQuery(usernamequery);
 		userDbObject.setParameter(1, emailId);

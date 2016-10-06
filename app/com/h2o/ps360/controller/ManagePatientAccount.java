@@ -1,9 +1,5 @@
 package com.h2o.ps360.controller;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import javax.inject.Inject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.h2o.ps360.dataobjects.sqldb.Patient;
@@ -11,8 +7,6 @@ import com.h2o.ps360.dataobjects.ui.service.dataobjects.PatientValidatedDataObje
 import com.h2o.ps360.ui.service.CreatePatientAccountService;
 import com.h2o.ps360.ui.service.PatientLoginService;
 import com.h2o.ps360.ui.service.ResetPasswordService;
-
-import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -54,45 +48,30 @@ public class ManagePatientAccount extends Controller {
 	/*
 	 * patient login validation Is done by 
 	 */
-	@Transactional
-	public Result patientLogin()
-	{
-		/*****************Expecting a JSOn String *********************/
-		Map<String, String[]> formdata = request().body().asFormUrlEncoded();
-		Set<String> keys= formdata.keySet();
-		Iterator<String> it = keys.iterator();
-		String username = formdata.get(it.next())[0];
-		String password = formdata.get(it.next())[0];
-		
-		/**************************************************/
-		JsonNode jsonFormatOfValidatedpatient = findPatient(username,password);
-		return ok(jsonFormatOfValidatedpatient);
-		
-	}
+	
 	public JsonNode findPatient(String username,String password) {
 		
 		Patient users=null;
 	    PatientValidatedDataObject validatedpatient = new PatientValidatedDataObject();
 		try {
 			users = patientLoginServ.getUserInf(username, password);
-			System.out.println(username+password);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(users==null){
-			validatedpatient.setAuthrole("anonymous");
+		//	validatedpatient.setAuthrole("anonymous");
 			validatedpatient.setToken(null);
 			validatedpatient.setValidated(false);
 		}
 		else
 		{
-			validatedpatient.setAuthrole("user");
+		//	validatedpatient.setAuthrole("user");
 			/*
 			 * we cannot set cookie for serialization , so we can send cookie attributes as 
 			 * a another json
 			 */
-			validatedpatient.setToken(username.substring(2,4)+password.substring(2,4));
+		//	validatedpatient.setToken(username.substring(2,4)+password.substring(2,4));
 			validatedpatient.setValidated(true);
 		}
 		JsonNode JsonFormatOfValidatedPatientInfo = Json.toJson(validatedpatient);

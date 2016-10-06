@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
   "org.mariadb.jdbc" % "mariadb-java-client" % "1.1.7",
   "com.google.code.gson" % "gson" % "2.3.1",
-  "org.mongodb" % "mongo-java-driver" % "1.3"
+  "org.mongodb" % "mongo-java-driver" % "1.3",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
 
 /*The following keys lets the eclipse to understand that the following project is Java Flavour*/
@@ -27,3 +28,4 @@ EclipseCreateSrc.ManagedResources)
 
 EclipseKeys.preTasks := Seq(compile in Compile)
 
+PlayKeys.externalizeResources := false

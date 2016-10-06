@@ -18,11 +18,10 @@ ManagePatientAccount patientaccount;
 @Transactional
 	public Result SignupPage(){
 System.out.println("*****************************************************");
-		String inputStringFromPatientForm = request().body().asFormUrlEncoded().get("signin")[0];
 				SignupResponseObject signupresponseobject = new SignupResponseObject();
-		JsonNode signupresponse=null;
+		JsonNode signuprequest= request().body().asJson();
 		/*********************converting the paramters into string***********************************/
-		int patientcreatedId = patientinfo.createPatientInfo(inputStringFromPatientForm);
+		int patientcreatedId = patientinfo.createPatientInfo(Json.stringify(signuprequest));
 		// patient is a mariadb entity
 		Patient patient = new Patient();
 		if(patientcreatedId==0){
@@ -30,14 +29,14 @@ System.out.println("*****************************************************");
 			signupresponseobject.setHttpresponse(400);
 			signupresponseobject.setResponsedescription("bad request,patient info not saved");
 			signupresponseobject.setPatientid(null);
-			signupresponse = Json.toJson(signupresponseobject);
+			signuprequest = Json.toJson(signupresponseobject);
 			System.out.println("patient created : false with patientid"+patientcreatedId);
-			return ok(signupresponse);
+			return ok(signuprequest);
 		}
 		else
 		{
 			Gson gson = new Gson();
-			patient = gson.fromJson(inputStringFromPatientForm,Patient.class);
+			patient = gson.fromJson(Json.stringify(signuprequest),Patient.class);
 			patient.setAcId(patientcreatedId);
 			patient.setPatientId(patientcreatedId);
 			patient.setIsActive(false);
@@ -47,16 +46,16 @@ System.out.println("*****************************************************");
 			signupresponseobject.setHttpresponse(200);
 			signupresponseobject.setPatientid(patientcreatedId);
 			signupresponseobject.setResponsedescription("patient successfully registered");
-			signupresponse = Json.toJson(signupresponseobject);
-			return ok(signupresponse);
+			signuprequest = Json.toJson(signupresponseobject);
+			return ok(signuprequest);
 			}
 			else{
 				signupresponseobject.setDefaultdomaincookie("h2odomaincookie");
 				signupresponseobject.setHttpresponse(400);
 				signupresponseobject.setPatientid(null);
 				signupresponseobject.setResponsedescription("patient account details not saved");
-				signupresponse = Json.toJson(signupresponseobject);
-				return ok(signupresponse);
+				signuprequest = Json.toJson(signupresponseobject);
+				return ok(signuprequest);
 			}
 		}
 	}

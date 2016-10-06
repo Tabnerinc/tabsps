@@ -1,7 +1,20 @@
 
-POST  /signup         com.h2o.ps360.controller.Ps360SignupPageController.SignupPage
+POST  /signupuser         com.h2o.ps360.controller.Ps360SignupPageController.SignupPage
 
-POST /signin          com.h2o.ps360.controller.ManagePatientAccount.patientLogin
+POST /signinuser          com.h2o.ps360.controller.Ps360SiginPageController.patientLogin
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file          controllers.Assets.versioned(path="/public", file: Asset)
+
+
+GET /signin                 controllers.Assets.at(path="/public", file="html/index.html")
+
+GET /signup                 controllers.Assets.at(path="/public", file="html/index.html")
+
+GET /home                   controllers.Assets.at(path="/public", file="html/index.html")
+
+GET     /bundle           controllers.Assets.at(path="/public", file="javascripts/bundle.js")
+
+GET     /styles           controllers.Assets.at(path="/public",file="stylesheets/styles.css")
+
+GET   /                   controllers.Assets.at(path="/public", file="html/index.html")
